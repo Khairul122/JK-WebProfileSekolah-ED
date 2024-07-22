@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8080
--- Generation Time: Jul 19, 2024 at 10:42 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Jul 22, 2024 at 07:29 PM
+-- Server version: 8.0.30
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `galeri` (
-  `id` int(11) NOT NULL,
-  `foto` varchar(50) NOT NULL,
-  `keterangan` varchar(100) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `id` int NOT NULL,
+  `foto` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `keterangan` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -50,23 +50,27 @@ INSERT INTO `galeri` (`id`, `foto`, `keterangan`, `created_at`, `updated_at`) VA
 --
 
 CREATE TABLE `guru` (
-  `id` int(11) NOT NULL,
+  `id_guru` int NOT NULL,
   `nama` varchar(100) NOT NULL,
-  `keterangan` text NOT NULL,
-  `gambar` varchar(50) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `keterangan` text,
+  `gambar` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `guru`
 --
 
-INSERT INTO `guru` (`id`, `nama`, `keterangan`, `gambar`, `created_at`, `updated_at`) VALUES
-(16, 'FOTO KEPALA SEKOLAH DAN TENAGA PENDIDIK SDN 21 BANDAR BUAT', '<p>FOTO KEPALA SEKOLAH DAN TENAGA PENDIDIK SDN 21 BANDAR BUAT</p>', 'guru1721403555.jpg ', '2024-07-19 15:40:11', '2024-07-19 22:40:11'),
-(19, 'GURU', '<p>GURU</p>', 'guru1721406765.jpg', '2024-07-19 16:32:45', NULL),
-(20, 'GURUU', '', 'guru1721407099.jpg', '2024-07-19 16:38:19', NULL),
-(21, 'GURUUU', '<p>FOTO GURU GURU SDN 21 BANDAR BUAT</p>', 'guru1721410480.png ', '2024-07-19 18:03:37', '2024-07-20 01:03:37');
+INSERT INTO `guru` (`id_guru`, `nama`, `keterangan`, `gambar`) VALUES
+(2, 'Budi', '<p>Halo</p>', 'guru1721673574.png'),
+(3, 'Budi 2', '<p>Halo</p>', 'guru1721673976.png'),
+(4, 'Budi 3', '<p>Halo</p>', 'guru1721673986.png'),
+(5, 'Budi 4', '<p>Halo</p>', 'guru1721673994.png'),
+(6, 'Budi 4', '<p>Halo</p>', 'guru1721674411.png'),
+(7, 'Budi 4', '<p>Halo</p>', 'guru1721674415.png'),
+(8, 'Budi 4', '<p>Halo</p>', 'guru1721674416.png'),
+(9, 'Budi 4', '<p>Halo</p>', 'guru1721674425.png'),
+(10, 'Budi 4', '<p>Halo</p>', 'guru1721674433.png'),
+(11, 'Budi 4', '<p>Halo</p>', 'guru1721674445.png');
 
 -- --------------------------------------------------------
 
@@ -75,13 +79,13 @@ INSERT INTO `guru` (`id`, `nama`, `keterangan`, `gambar`, `created_at`, `updated
 --
 
 CREATE TABLE `informasi` (
-  `id` int(11) NOT NULL,
-  `judul` varchar(100) NOT NULL,
-  `keterangan` text NOT NULL,
-  `gambar` varchar(100) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `id` int NOT NULL,
+  `judul` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `keterangan` text COLLATE utf8mb4_general_ci NOT NULL,
+  `gambar` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL,
-  `created_by` int(11) NOT NULL
+  `created_by` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -95,24 +99,44 @@ INSERT INTO `informasi` (`id`, `judul`, `keterangan`, `gambar`, `created_at`, `u
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kepsek`
+--
+
+CREATE TABLE `kepsek` (
+  `id_kepsek` int NOT NULL,
+  `nama_kepsek` varchar(255) NOT NULL,
+  `foto_kepsek` varchar(255) DEFAULT NULL,
+  `kata` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `kepsek`
+--
+
+INSERT INTO `kepsek` (`id_kepsek`, `nama_kepsek`, `foto_kepsek`, `kata`) VALUES
+(5, 'Budi', 'kepsek1721674645.png', '<p>Halo</p>');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pengaturan`
 --
 
 CREATE TABLE `pengaturan` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `telepon` varchar(30) NOT NULL,
-  `alamat` text NOT NULL,
-  `logo` varchar(50) NOT NULL,
-  `favicon` varchar(50) NOT NULL,
-  `tentang_sekolah` text NOT NULL,
-  `foto_sekolah` varchar(50) NOT NULL,
-  `google_maps` text NOT NULL,
-  `nama_kepsek` varchar(50) NOT NULL,
-  `foto_kepsek` varchar(50) NOT NULL,
-  `sambutan_kepsek` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `id` int NOT NULL,
+  `nama` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `telepon` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `alamat` text COLLATE utf8mb4_general_ci NOT NULL,
+  `logo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `favicon` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `tentang_sekolah` text COLLATE utf8mb4_general_ci NOT NULL,
+  `foto_sekolah` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `google_maps` text COLLATE utf8mb4_general_ci NOT NULL,
+  `nama_kepsek` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `foto_kepsek` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `sambutan_kepsek` text COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -130,12 +154,12 @@ INSERT INTO `pengaturan` (`id`, `nama`, `email`, `telepon`, `alamat`, `logo`, `f
 --
 
 CREATE TABLE `pengguna` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(50) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `level` enum('Admin') NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `id` int NOT NULL,
+  `nama` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `level` enum('Admin') COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -147,6 +171,25 @@ INSERT INTO `pengguna` (`id`, `nama`, `username`, `password`, `level`, `created_
 (1, 'Ilham', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Admin', '2024-07-17 16:28:23', NULL),
 (2, 'Fathur', 'fathur12', 'e10adc3949ba59abbe56e057f20f883e', 'Admin', '2024-07-17 16:32:53', NULL),
 (3, 'Fatih ', 'fatih123', 'e10adc3949ba59abbe56e057f20f883e', 'Admin', '2024-07-18 10:50:01', '2024-07-18 17:50:01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `visimisi`
+--
+
+CREATE TABLE `visimisi` (
+  `id_visimisi` int NOT NULL,
+  `visi` text NOT NULL,
+  `misi` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `visimisi`
+--
+
+INSERT INTO `visimisi` (`id_visimisi`, `visi`, `misi`) VALUES
+(2, 'Halo1', 'Halo1');
 
 --
 -- Indexes for dumped tables
@@ -162,7 +205,7 @@ ALTER TABLE `galeri`
 -- Indexes for table `guru`
 --
 ALTER TABLE `guru`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_guru`);
 
 --
 -- Indexes for table `informasi`
@@ -170,6 +213,12 @@ ALTER TABLE `guru`
 ALTER TABLE `informasi`
   ADD PRIMARY KEY (`id`),
   ADD KEY `created_by` (`created_by`);
+
+--
+-- Indexes for table `kepsek`
+--
+ALTER TABLE `kepsek`
+  ADD PRIMARY KEY (`id_kepsek`);
 
 --
 -- Indexes for table `pengaturan`
@@ -184,6 +233,12 @@ ALTER TABLE `pengguna`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `visimisi`
+--
+ALTER TABLE `visimisi`
+  ADD PRIMARY KEY (`id_visimisi`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -191,31 +246,43 @@ ALTER TABLE `pengguna`
 -- AUTO_INCREMENT for table `galeri`
 --
 ALTER TABLE `galeri`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_guru` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `informasi`
 --
 ALTER TABLE `informasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `kepsek`
+--
+ALTER TABLE `kepsek`
+  MODIFY `id_kepsek` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pengaturan`
 --
 ALTER TABLE `pengaturan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `visimisi`
+--
+ALTER TABLE `visimisi`
+  MODIFY `id_visimisi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables

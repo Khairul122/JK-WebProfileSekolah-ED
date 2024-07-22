@@ -5,7 +5,7 @@
         <h3 class="text-center">Visi dan Misi Sekolah</h3>
 
         <?php
-       include 'koneksi.php' ; 
+       	include 'koneksi.php';
         // Query untuk mengambil data visi dan misi
         $sql = "SELECT visi, misi FROM visimisi LIMIT 1"; // Ubah LIMIT sesuai kebutuhan
         $result = $conn->query($sql);
